@@ -1,18 +1,35 @@
-#include "AlternativeSequenceFinder.h"
+#include "alternative_finder.h"
 #include <algorithm>
 #include <sstream>
 
-string AlternativeSequenceFinder::numberToMarkedString(int num) {
+string numberToMarkedString(int num) {
     return "#" + to_string(num) + "#";
 }
 
-int AlternativeSequenceFinder::extractNumber(const string& markedString) {
+int extractNumber(const string& markedString) {
     string numStr = markedString.substr(1, markedString.length() - 2);
     return stoi(numStr);
 }
 
-AlternativeSequenceFinder::MergeSortResult 
-AlternativeSequenceFinder::mergeWithDuplicateDetection(
+int countConsecutiveUnique(const vector<int>& arr) {
+    if (arr.empty()) return 0;
+    
+    int maxCount = 1;  // Length of current sequence
+    int currentCount = 1;
+    
+    for (size_t i = 1; i < arr.size(); i++) {
+        if (arr[i] != arr[i-1]) {
+            currentCount++;
+            maxCount = max(maxCount, currentCount);
+        } else {
+            currentCount = 1;
+        }
+    }
+    
+    return maxCount;
+}
+
+MergeSortResult mergeWithDuplicateDetection(
     const vector<string>& left, const vector<int>& leftDupes,
     const vector<string>& right, const vector<int>& rightDupes) {
     
@@ -60,8 +77,7 @@ AlternativeSequenceFinder::mergeWithDuplicateDetection(
     return {mergedPrimary, mergedDupes};
 }
 
-AlternativeSequenceFinder::MergeSortResult 
-AlternativeSequenceFinder::mergeSortWithDuplicates(const vector<int>& arr, int start, int end) {
+MergeSortResult mergeSortWithDuplicates(const vector<int>& arr, int start, int end) {
     if (start == end) {
         return {vector<string>{numberToMarkedString(arr[start])}, vector<int>{}};
     }
@@ -77,7 +93,7 @@ AlternativeSequenceFinder::mergeSortWithDuplicates(const vector<int>& arr, int s
     );
 }
 
-vector<int> AlternativeSequenceFinder::reconstructSequence(
+vector<int> reconstructSequence(
     const vector<string>& primaryArray,
     const vector<int>& duplicatesArray) {
     
@@ -114,7 +130,7 @@ vector<int> AlternativeSequenceFinder::reconstructSequence(
     return result;
 }
 
-vector<int> AlternativeSequenceFinder::findMaxConsecutiveUnique(const vector<int>& numbers) {
+vector<int> findMaxConsecutiveUnique(const vector<int>& numbers) {
     if (numbers.empty()) return {};
     
     // Perform merge sort with duplicate detection
