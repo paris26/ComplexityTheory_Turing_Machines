@@ -134,5 +134,3 @@ g++ -std=c++11 *.cpp -o sequence_finder
 
 This project is open source and available under the MIT License.
 ```
-
-You can now copy this entire block and paste it directly into your GitHub repository's README.md file. GitHub will automatically render it with proper formatting.
