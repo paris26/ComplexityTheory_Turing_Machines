@@ -50,7 +50,7 @@ Given an array of integers, find the longest possible sequence where no two adja
 ### 3. Brute Force Algorithm
 - **Function**: `BruteForce`
 - **Complexity**:
-  - Time: O(n · n!)
+  - Time: O(n^3 · n!)
   - Space: O(n)
 - **Note**: Only suitable for small inputs (n ≤ 10) due to factorial complexity
 
